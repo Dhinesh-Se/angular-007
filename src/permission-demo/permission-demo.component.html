@@ -66,6 +66,9 @@
   <div class="info-box">
     <h4>📋 Current Permissions:</h4>
     <p>Role-based access control is managed by the PermissionStore.</p>
+    <ng-container *ngIf="currentPermissions$ | async as currentPermissions">
+      <p><strong>Active permissions:</strong> {{ currentPermissions.length ? currentPermissions.join(', ') : 'None' }}</p>
+    </ng-container>
     <p>Click the buttons above to change your role and see the UI adapt!</p>
   </div>
 </div>

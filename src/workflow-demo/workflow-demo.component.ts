@@ -54,6 +54,7 @@ export class WorkflowDemoComponent {
   ];
 
   currentStepIndex = 2;
+  selectedStep: WorkflowStepData = this.workflowSteps[this.currentStepIndex];
 
   get progressPercentage(): number {
     const completedCount = this.workflowSteps.filter(
@@ -82,6 +83,8 @@ export class WorkflowDemoComponent {
         });
         this.currentStepIndex++;
       }
+
+      this.selectedStep = this.workflowSteps[this.currentStepIndex];
     }
   }
 
@@ -94,6 +97,7 @@ export class WorkflowDemoComponent {
         }
         return step;
       });
+      this.selectedStep = this.workflowSteps[this.currentStepIndex];
     }
   }
 
@@ -136,9 +140,15 @@ export class WorkflowDemoComponent {
       }
     ];
     this.currentStepIndex = 2;
+    this.selectedStep = this.workflowSteps[this.currentStepIndex];
   }
 
-  onStepClick(index: number) {
-    this.currentStepIndex = index;
+  onStepSelected(step: WorkflowStep) {
+    const selectedIndex = this.workflowSteps.findIndex(workflowStep => workflowStep.id === step.id);
+
+    if (selectedIndex >= 0) {
+      this.currentStepIndex = selectedIndex;
+      this.selectedStep = this.workflowSteps[selectedIndex];
+    }
   }
 }

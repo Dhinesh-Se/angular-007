@@ -1,0 +1,36 @@
+<div class="workflow-demo section">
+  <header class="demo-header">
+    <div>
+      <h2>📋 Workflow Timeline Demo</h2>
+      <p class="subtitle">Track an order from creation to delivery with live status updates.</p>
+    </div>
+    <div class="progress-card" aria-label="Workflow completion percentage">
+      <span class="progress-value">{{ progressPercentage }}%</span>
+      <span class="progress-label">complete</span>
+    </div>
+  </header>
+
+  <div class="control-panel">
+    <button type="button" class="btn btn-primary" (click)="completeStep()">
+      Complete Current Step
+    </button>
+    <button type="button" class="btn btn-danger" (click)="failStep()">
+      Mark Step Failed
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="resetWorkflow()">
+      Reset Workflow
+    </button>
+  </div>
+
+  <ent-workflow-timeline
+    [steps]="workflowSteps"
+    [config]="{ orientation: 'vertical', showMetadata: true, showProgress: true, density: 'comfortable' }"
+    (stepSelected)="onStepSelected($event)"
+  ></ent-workflow-timeline>
+
+  <section class="step-details" *ngIf="selectedStep as step">
+    <h3>Selected Step</h3>
+    <p><strong>{{ step.label }}</strong> is currently <span [class]="'status status-' + step.status">{{ step.status }}</span>.</p>
+    <p>{{ step.description }}</p>
+  </section>
+</div>

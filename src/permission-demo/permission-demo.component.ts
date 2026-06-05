@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionDirective, PermissionStore } from '@dhinesh-se/angular-components';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-permission-demo',
@@ -11,9 +12,14 @@ import { PermissionDirective, PermissionStore } from '@dhinesh-se/angular-compon
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PermissionDemoComponent {
-  currentRole$ = this.permissionStore.currentPermissions$;
+  readonly currentPermissions$: Observable<readonly string[]>;
 
-  constructor(private permissionStore: PermissionStore) {}
+  constructor(private permissionStore: PermissionStore) {
+    this.currentPermissions$ = this.permissionStore.context$.pipe(
+      map(context => context.permissions)
+    );
+    this.grantBasicPermissions();
+  }
 
   grantAdminPermissions() {
     this.permissionStore.setPermissions([
