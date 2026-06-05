@@ -21,10 +21,7 @@
             "styles": [
               "src/global_styles.css"
             ],
-            "scripts": [],
-            "polyfills": [
-              "zone.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
