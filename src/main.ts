@@ -1,3 +1,6 @@
+
+import 'zone.js';  // ✅ MUST BE FIRST LINE
+
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -6,6 +9,9 @@ import { LibraryDemoComponent } from './library-demo/library-demo.component';
 import { ParentComponent } from './parent/parent.component';
 import { PermissionDemoComponent } from './permission-demo/permission-demo.component';
 import { WorkflowDemoComponent } from './workflow-demo/workflow-demo.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { DefaultPermissionEvaluator, PermissionDirective, PermissionStore } from '@dhinesh-se/angular-components';
 
 interface DemoTab {
   readonly id: 'overview' | 'products' | 'customers' | 'permissions' | 'workflow' | 'library';
@@ -201,4 +207,14 @@ export class App {
   };
 }
 
-bootstrapApplication(App).catch(error => console.error(error));
+bootstrapApplication(App)
+  .catch((err) => console.error(err));
+
+// bootstrapApplication(App, {
+//   providers: [
+//     provideHttpClient(),
+//     provideRouter([]),
+//   ]
+// });
+
+

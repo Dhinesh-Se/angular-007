@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PermissionDirective, PermissionStore } from '@dhinesh-se/angular-components';
+import { PermissionDirective } from '@dhinesh-se/angular-components';
 import { Observable, map } from 'rxjs';
+import { PermissionStore } from '@dhinesh-se/angular-components';
+
 
 @Component({
   selector: 'app-permission-demo',
