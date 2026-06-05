@@ -1,0 +1,71 @@
+<div class="section">
+  <h2>🔐 Permission Management Demo</h2>
+  
+  <div class="control-panel">
+    <p class="subtitle">Switch Roles to See UI Changes:</p>
+    <div class="button-group">
+      <button (click)="grantAdminPermissions()" class="btn btn-primary">Admin</button>
+      <button (click)="grantEditorPermissions()" class="btn btn-secondary">Editor</button>
+      <button (click)="grantBasicPermissions()" class="btn btn-info">Viewer</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h3>📊 Report Management</h3>
+      <p *entHasPermission="'report.read'" class="permission-badge">✓ Can View Reports</p>
+      <p *entHasPermission="'report.write'" class="permission-badge admin-only">✓ Can Edit Reports</p>
+      <p *entHasPermission="'report.delete'" class="permission-badge danger">✓ Can Delete Reports</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>⚙️ Admin Settings</h3>
+      <div *entHasPermission="'admin.settings'">
+        <p class="permission-badge admin-only">✓ Configure System Settings</p>
+        <p class="permission-badge admin-only">✓ Access Backup Controls</p>
+      </div>
+      <p *entHasPermission="'admin.settings'; else noAccess" style="margin-top: 10px;">
+        Admin panel is accessible
+      </p>
+      <ng-template #noAccess>
+        <p style="color: #999; font-style: italic; margin-top: 10px;">No access to admin panel</p>
+      </ng-template>
+    </div>
+
+    <div class="feature-card">
+      <h3>👥 User Management</h3>
+      <div *entHasPermission="'admin.users'">
+        <p class="permission-badge admin-only">✓ Manage Users</p>
+        <p class="permission-badge admin-only">✓ Assign Roles</p>
+        <p class="permission-badge admin-only">✓ Reset Passwords</p>
+      </div>
+      <div *entHasPermission="'admin.users'; else viewOnly">
+        User controls available
+      </div>
+      <ng-template #viewOnly>
+        <p style="color: #999; font-style: italic;">You can only view user information</p>
+      </ng-template>
+    </div>
+
+    <div class="feature-card">
+      <h3>✏️ Content Editor</h3>
+      <div *entHasPermission="['content.edit']; mode: 'any'">
+        <p class="permission-badge">✓ Edit Content</p>
+        <p class="permission-badge">✓ Create Pages</p>
+        <p class="permission-badge">✓ Publish Changes</p>
+      </div>
+      <p *entHasPermission="['content.edit']; else noEditAccess" style="margin-top: 10px;">
+        Content editing is available
+      </p>
+      <ng-template #noEditAccess>
+        <p style="color: #999; font-style: italic;">Content editing is not available</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <h4>📋 Current Permissions:</h4>
+    <p>Role-based access control is managed by the PermissionStore.</p>
+    <p>Click the buttons above to change your role and see the UI adapt!</p>
+  </div>
+</div>
